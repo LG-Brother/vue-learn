@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>通过指令实现下拉菜单效果</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <!--  <script src="node_modules/vue/dist/vue.global.js"></script>-->
+  <style>
+    body {
+      width: 600px;
+    }
+    a {
+      text-decoration: none;
+      display: block;
+      color: #fff;
+      width: 120px;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid #fff;
+      border-width: 1px 1px 0 0;
+      background: #5D478B;
+    }
+    li {
+      list-style-type: none;
+    }
+    #app > li {
+      list-style-type: none;
+      float: left;
+      text-align: center;
+    }
+    #app li a:hover {
+      color: #fff;
+      background: #FF8C69;
+    }
+    #app li ul {
+      position: absolute;
+      margin-top: -1px;
+      margin-left: -40px;
+      font-size: 12px;
+    }
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>通过指令实现下拉菜单效果</h1>
+  <div id="app" v-cloak>
+    <li v-for="menu in menus" @mouseover = "menu.show = !menu.show" @mouseout = "menu.show = !menu.show">
+      <a :href = "menu.url">
+        {{menu.name}}
+      </a>
+      <ul v-show="menu.show">
+        <li v-for="subMenu in menu.subMenus">
+          <a :href="subMenu.url">{{subMenu.name}}</a>
+        </li>
+      </ul>
+
+    </li>
+
+  </div>
+  <script>
+    const data = {
+      menus: [
+        {
+          name: '在线课程',
+          url: '#',
+          show: false,
+          subMenus: [
+            { name: 'python课程', url: '#' },
+            { name: 'Java课程', url: '#' },
+            { name: '前端课程', url: '#' }
+          ]
+        },
+        {
+          name: '经典图书',
+          url: '#',
+          show: false,
+          subMenus: [
+            { name: 'python图书', url: '#' },
+            { name: 'Java图书', url: '#' },
+            { name: 'Java图书', url: '#' }
+          ]
+        },
+        {
+          name: '技术支持',
+          url: '#',
+          show: false,
+          subMenus: [
+            { name: 'python技术支持', url: '#' },
+            { name: 'Java技术支持', url: '#' },
+            { name: 'Java技术支持', url: '#' }
+          ]
+        },
+        {
+          name: '关于我们',
+          url: '#',
+          show: false,
+          subMenus: [
+            { name: '团队介绍', url: '#' },
+            { name: '练习我们', url: '#' }
+          ]
+        }
+      ]
+    };
+
+    new Vue({
+      el: '#app',
+      data: data
+    });
+  </script>
+</body>
+</html>
