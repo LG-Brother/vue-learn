@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试子代选择器</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <!--  <script src="node_modules/vue/dist/vue.global.js"></script>-->
+  <style>
+    #parent > .child > .grandson {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="parent">
+    <div class="child">
+      Child 1
+      <div class="grandson">
+        Grandson 1-1
+      </div>
+      <div>
+        <div class="grandson">
+          Grandson 1-2
+        </div>
+      </div>
+    </div>
+    <div class="child1">
+      Child 2
+      <div class="grandson">
+        Grandson 2-1
+      </div>
+    </div>
+    <div>
+      <div class="child">Child 3</div>
+    </div>
+  </div>
+</body>
+</html>
