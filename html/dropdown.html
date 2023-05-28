@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>通过指令实现下拉菜单效果</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <!--  <script src="node_modules/vue/dist/vue.global.js"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>-->
+    <script src="https://unpkg.com/vue@next"></script>
   <style>
     body {
       width: 600px;
@@ -104,10 +104,16 @@
       ]
     };
 
-    new Vue({
-      el: '#app',
-      data: data
-    });
+    // new Vue({
+    //   el: '#app',
+    //   data: data
+    // });
+    Vue.createApp({
+      data() {
+        return data;
+      }
+    }).mount('#app')
+
   </script>
 </body>
 </html>
