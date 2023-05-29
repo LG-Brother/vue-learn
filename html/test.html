@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>通过指令实现下拉菜单效果</title>
-<!--  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>-->
-    <script src="https://unpkg.com/vue@next"></script>
+  <title>知识回顾</title>
+  <script src="https://unpkg.com/vue@next"></script>
   <style>
+    html,
     body {
       display: flex;
       justify-content: center;
@@ -17,12 +17,12 @@
       text-decoration: none;
       display: block;
       color: #fff;
+      background: #5D478B;
       width: 120px;
       height: 40px;
       line-height: 40px;
       border: 1px solid #fff;
       border-width: 1px 1px 0 0;
-      background: #5D478B;
     }
     li {
       list-style-type: none;
@@ -48,11 +48,11 @@
   </style>
 </head>
 <body>
-  <div>
+  <div id="container">
     <h1>通过指令实现下拉菜单效果</h1>
     <div id="app" v-cloak>
       <li v-for="menu in menus" @mouseover = "menu.show = !menu.show" @mouseout = "menu.show = !menu.show">
-        <a :href = "menu.url">
+        <a :href="menu.url">
           {{menu.name}}
         </a>
         <ul v-show="menu.show">
@@ -107,17 +107,11 @@
         }
       ]
     };
-
-    // new Vue({
-    //   el: '#app',
-    //   data: data
-    // });
     Vue.createApp({
       data() {
         return data;
       }
     }).mount('#app')
-
   </script>
 </body>
 </html>
