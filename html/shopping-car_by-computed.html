@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>通过计算属性设计购物车效果</title>
+  <script src="https://unpkg.com/vue@next"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+    }
+    #app p {
+      text-align: right;
+    }
+    li {
+      list-style-type: none;
+    }
+    .item-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px; /* 可根据需要调整底边距 */
+    }
+    .item-details {
+      display: flex;
+      align-items: center;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+  </style>
+</head>
+<body>
+  <div>
+    <h1>商品购物车</h1>
+    <div id="app">
+      <div>
+        <label>
+          <input type="checkbox" v-model="checkAll">
+          全选
+        </label>
+      </div>
+      <ul>
+        <li v-for="(item,index) in list" :key="item.id">
+          <div class="item-container">
+            <label>
+              <input type="checkbox" v-model="item.checked">
+              {{item.name}}
+            </label>
+            ￥{{item.price}}
+            <div class="item-details">
+                <button type="button" @click="item.nums > 1 ? item.nums -= 1 : 1">-</button>
+                <span class="quantity">&nbsp;数量：{{item.nums}}&nbsp;</span>
+                <button type="button" @click="item.nums += 1">+</button>
+            </div>
+            <span class="subtotal">小计：{{item.nums * item.price}}</span>
+          </div>
+        </li>
+      </ul>
+      <p>
+        总价：
+        {{sumPrice}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button>提交订单</button>
+      </p>
+    </div>
+
+  </div>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          list: [{
+            id: 1,
+            name: '洗衣机',
+            checked: false,
+            price: 6800,
+            nums: 1
+          },
+          {
+            id: 2,
+            name: '电视机',
+            checked: true,
+            price: 4900,
+            nums: 1
+          },
+          {
+            id: 3,
+            name: '饮水机',
+            checked: true,
+            price: 1000,
+            nums: 1
+          }
+          ]
+        }
+      },
+      computed: {
+        checkAll: {
+          set(v) {
+            this.list.forEach(item => {
+              item.checked = v
+            });
+          },
+          get() {
+            return this.list.length === this.list.filter(item =>
+              item.checked == true).length
+          }
+        },
+        checkNo: {
+          set() {
+            this.list.forEach(item => {
+              item.checked = !item.checked;
+            })
+          },
+          get() {
+            return this.list.length === this.list.filter(item =>
+              item.checked == true).length
+          }
+        },
+        // sumPrice() {
+        //   return this.list.filter(item => item.checked)
+        //     .reduce((pre,cur) => {
+        //         return pre + cur.nums * cur.price;
+        //       },0)
+        // },
+        sumPrice: {
+          get() {
+            return this.list.filter(item => item.checked).reduce((pre,cur) => {
+              return pre + cur.nums * cur.price
+            },0)
+          }
+        }
+      },
+      methods: {
+
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
